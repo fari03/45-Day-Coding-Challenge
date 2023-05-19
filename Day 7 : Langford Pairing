@@ -1,0 +1,58 @@
+import java.util.Arrays;
+
+public class Solution {
+    public static boolean findLangfordHelper(int[] arr, int n) {
+        if (n == 0) {
+            return true;
+        }
+
+        for (int i = 0; i < arr.length - n - 1; i++) {
+            if (arr[i] == 0 && arr[i + n + 1] == 0) {
+                arr[i] = n;
+                arr[i + n + 1] = n;
+
+                if (findLangfordHelper(arr, n - 1)) {  // Recursive calls
+                    return true;
+                }
+
+                arr[i] = 0;
+                arr[i + n + 1] = 0;
+            }
+        }
+
+        return false;
+    }
+
+    public static int[] findLangfordPairing(int n) {
+        int[] sequence = new int[2 * n];
+        Arrays.fill(sequence, 0);  // Initialize the sequence with 0
+
+        if (findLangfordHelper(sequence, n)) {
+            return sequence;
+        } else {
+            return new int[]{-1};  // If Langford pairing is not possible, return [-1]
+        }
+    }
+
+    public static void main(String[] args) {
+        int t = 2;  // Number of test cases
+        int[] testCases = {4, 5};  // Test case inputs
+
+        for (int i = 0; i < t; i++) {
+            int n = testCases[i];
+
+            // Calculate the Langford pairing sequence
+            int[] sequence = findLangfordPairing(n);
+
+            // Print the output
+            if (sequence[0] == -1) {
+                System.out.println(-1);
+            } else {
+                for (int num : sequence) {
+                    System.out.print(num + " ");
+                }
+                System.out.println();
+            }
+        }
+    }
+}
