@@ -1,0 +1,71 @@
+import java.util.*;
+
+class Solution {
+    static long sum(int a, int n) {
+        long a2 = (long) a * 2;
+        long ans = ((long) n * (a2 + n - 1)) / 2;
+        return ans;
+    }
+
+    static long footballGame(int[] vacantSeats, int m, int n) {
+        List<Integer> vacantSeatsList = new ArrayList<>();
+        for (int seat : vacantSeats) {
+            vacantSeatsList.add(seat);
+        }
+        Collections.sort(vacantSeatsList);
+        long ans = 0;
+        long c = 1;
+
+        for (int i = vacantSeatsList.size() - 1; i >= 0; i--) {
+            if (n <= 0 || i == 0) {
+                break;
+            }
+
+            long dif = vacantSeatsList.get(i) - vacantSeatsList.get(i - 1);
+
+            if (n >= dif * c) {
+                ans += sum(vacantSeatsList.get(i - 1) + 1, (int) dif) * c;
+            } else {
+                long x = n / c;
+                long max = vacantSeatsList.get(i - 1) + dif;
+
+                if (x > 0) {
+                    ans += sum((int) (max - x + 1), (int) x) * c;
+                    n -= x * c;
+                    max -= x;
+                }
+
+                ans += max * n;
+                n = 0;
+            }
+
+            n -= dif * c;
+            c++;
+        }
+
+        if (n > 0) {
+            c--;
+            long x = n / c;
+            long max = vacantSeatsList.get(0);
+
+            if (x > 0) {
+                ans += sum((int) (max - x + 1), (int) x) * c;
+                n -= x * c;
+                max -= x;
+            }
+
+            ans += max * n;
+        }
+
+        return ans;
+    }
+
+    public static void main(String[] args) {
+        int[] vacantSeats = {5, 10, 15, 20};
+        int m = 2;
+        int n = 10;
+
+        long result = footballGame(vacantSeats, m, n);
+        System.out.println(result);
+    }
+}
