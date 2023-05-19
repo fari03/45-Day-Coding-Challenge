@@ -1,0 +1,35 @@
+public class Solution {
+    public static String stringCheck(String s, int l, int h, int n) {
+        while (l >= 0 && h < n) {
+            if (s.charAt(l) != s.charAt(h)) {
+                break;
+            }
+            l--;
+            h++;
+        }
+        return s.substring(l + 1, h);
+    }
+
+    public static String longestPalinSubstring(String str) {
+        int n = str.length();
+        String res = "";
+
+        // Odd Case
+        for (int i = 0; i < n; i++) {
+            String odd = stringCheck(str, i - 1, i + 1, n);
+            if (odd.length() > res.length()) {
+                res = odd;
+            }
+        }
+
+        // Even Case
+        for (int i = 0; i < n; i++) {
+            String even = stringCheck(str, i - 1, i, n);
+            if (even.length() > res.length()) {
+                res = even;
+            }
+        }
+
+        return res;
+    }
+}
