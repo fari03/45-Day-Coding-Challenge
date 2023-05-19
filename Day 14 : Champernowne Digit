@@ -1,0 +1,43 @@
+import java.util.*;
+ class solution {
+    public static int champernowneDigit(int N) {
+        // if N lies between 1 and 9
+        if (N < 10) {
+            return N;
+        }
+
+        // count the number of digits
+        int base = 9, digits = 1;
+        while (N > base * digits) {
+            N -= base * digits;
+            base *= 10;
+            digits++;
+        }
+
+        // calculate the number
+        int ind = N % digits;
+        if (ind == 0) {
+            ind = digits;
+        }
+
+        int num = 1;
+        for (int i = 1; i < digits; i++) {
+            num *= 10;
+        }
+
+        num += (ind == digits) ? N / digits - 1 : N / digits;
+
+        // find the Nth digit
+        for (int i = ind; i < digits; i++) {
+            num /= 10;
+        }
+
+        return num % 10;
+    }
+
+    public static void main(String[] args) {
+        int N = 15;
+        int digit = champernowneDigit(N);
+        System.out.println(digit);
+    }
+}
