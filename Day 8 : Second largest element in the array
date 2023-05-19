@@ -1,0 +1,41 @@
+from os import *
+from sys import *
+from collections import *
+from math import *
+
+from sys import stdin
+import sys
+
+def findSecondLargest(sequenceOfNumbers):
+    # eliminating duplicates by using set and converting back to list
+    sequenceOfNumbers = list(set(sequenceOfNumbers))
+    sequenceOfNumbers.sort() # builtin sort function
+
+     # if length of list is less than or equal to 1
+     # no second largest element will be present
+
+    if len(sequenceOfNumbers) <= 1:
+
+        return -1
+
+     # if length of list is greater than 1,
+
+    # second largest element is returned from sorted list
+
+    return sequenceOfNumbers[-2]
+
+
+# Taking input using fast I/O.
+def takeInput():
+    n = int(input())
+
+    sequenceOfNumbers = list(map(int, input().strip().split(" ")))
+
+    return sequenceOfNumbers, n
+
+# Main.
+t = int(input())
+while t:
+    sequenceOfNumbers, n = takeInput()
+    print(findSecondLargest(sequenceOfNumbers))
+    t = t-1
