@@ -1,0 +1,121 @@
+
+/**************************************
+    
+    Following is the point class
+    
+    class point {
+		int x;
+		int y;
+	
+		point(int x, int y) {
+			this.x = x;
+			this.y = y;
+		}
+	 }
+  
+ **************************************/
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+
+
+
+class Solution {
+    public static long dist(point p1, point p2) {
+        // find distance between points p1 and p2
+        long dis = ((long) (p1.x - p2.x) * (p1.x - p2.x)) + ((long) (p1.y - p2.y) * (p1.y - p2.y));
+        return dis;
+    }
+
+    public static long findMinDist(point[] pts, int n) {
+        // find minimum distance between two points in a set
+        long minimum = Long.MAX_VALUE;
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                minimum = Math.min(minimum, dist(pts[i], pts[j]));
+            }
+        }
+        return minimum;
+    }
+
+    public static boolean cmp(point a, point b) {
+        return a.y < b.y;
+    }
+
+    public static long stripClose(point[] strip, long d) {
+        // Sort the strip array with respect to y coordinates.
+        Arrays.sort(strip, Comparator.comparingInt(p -> p.y));
+
+        // Find closest distance of two points in a strip
+        long minimum = d;
+        for (int i = 0; i < strip.length; ++i) {
+            for (int j = i + 1; j < strip.length; ++j) {
+                long tmp = (long) strip[j].y - strip[i].y;
+                tmp *= tmp;
+                if (tmp >= minimum) {
+                    break;
+                } else {
+                    minimum = Math.min(minimum, dist(strip[i], strip[j]));
+                }
+            }
+        }
+        return minimum;
+    }
+
+    public static long findClosest(point[] xSorted, int n) {
+        if (n <= 3) {
+            return findMinDist(xSorted, n);
+        }
+
+        int mid = n / 2;
+        point midPoint = xSorted[mid];
+
+        // x sorted points in the left side
+        point[] xSortedLeft = Arrays.copyOfRange(xSorted, 0, mid + 1);
+
+        // x sorted points in the right side
+        point[] xSortedRight = Arrays.copyOfRange(xSorted, mid + 1, n);
+
+        // get minimum distance of left and right part.
+        long leftDist = findClosest(xSortedLeft, mid + 1);
+        long rightDist = findClosest(xSortedRight, n - mid - 1);
+
+        long distance = Math.min(leftDist, rightDist);
+
+        // hold points closer to the vertical line
+        List<point> strip = new ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            long tmp = Math.abs((long) xSorted[i].x - midPoint.x);
+            tmp *= tmp;
+            if (tmp < distance) {
+                strip.add(xSorted[i]);
+            }
+        }
+
+        // find minimum using distance and closest pair in strip
+        return Math.min(distance, stripClose(strip.toArray(new point[0]), distance));
+    }
+
+    public static long closestPair(point[] coordinates, int n) {
+        // find distance of closest pair in a set of points
+        point[] xSorted = Arrays.copyOf(coordinates, coordinates.length);
+
+        // Sort coordinates with respect to x values.
+        Arrays.sort(xSorted, Comparator.comparingInt(p -> p.x));
+
+        return findClosest(xSorted, n);
+    }
+
+    public static void main(String[] args) {
+        point[] coordinates = new point[4];
+        coordinates[0] = new point(1, 2);
+        coordinates[1] = new point(3, 4);
+        coordinates[2] = new point(5, 6);
+        coordinates[3] = new point(7, 8);
+
+        int n = coordinates.length;
+        long closestDistance = closestPair(coordinates, n);
+        System.out.println("Closest distance: " + closestDistance);
+    }
+}
