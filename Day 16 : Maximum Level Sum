@@ -1,0 +1,41 @@
+import java.util.* ;
+import java.io.*; 
+/********************************************************
+
+	Binary tree node class for reference:
+	
+	class BinaryTreeNode {
+		int val;
+		BinaryTreeNode left;
+		BinaryTreeNode right;
+
+		BinaryTreeNode(int val) {
+			this.val = val;
+			this.left = null;
+			this.right = null;
+		}
+	}
+
+********************************************************/
+
+public class Solution {
+	public static int maxLevelSum(BinaryTreeNode root) {
+		// Write your code here.
+        Queue<BinaryTreeNode> q = new LinkedList<>();
+        q.add(root);
+        int ans = Integer.MIN_VALUE;
+        while(!q.isEmpty()){
+            int s=0;
+            int size = q.size();
+            for(int i=0;i<size;i++){
+                BinaryTreeNode n = q.poll();
+                if(n.left!=null)q.add(n.left);
+                if(n.right!=null)q.add(n.right);
+                s+=n.val;
+            }
+            ans = Math.max(ans, s);
+        }
+        return ans;
+	}
+}
+
