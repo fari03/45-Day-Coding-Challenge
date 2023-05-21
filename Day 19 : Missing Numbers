@@ -1,0 +1,37 @@
+import java.util.*;
+
+public class Solution {
+    public static List<Integer> missingNumbers(int[] arr, int n) {
+        Map<Integer, Integer> dict = new HashMap<>();
+        int min = Integer.MAX_VALUE;
+        int max = Integer.MIN_VALUE;
+
+        for (int i = 0; i < n; i++) {
+            dict.put(arr[i], dict.getOrDefault(arr[i], 0) + 1);
+            min = Math.min(min, arr[i]);
+            max = Math.max(max, arr[i]);
+        }
+
+        List<Integer> res = new ArrayList<>();
+        for (int i = min; i < max; i++) {
+            if (!dict.containsKey(i)) {
+                res.add(i);
+            }
+        }
+
+        return res;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {1, 2, 3, 4};
+        int n = arr.length;
+
+        List<Integer> result = missingNumbers(arr, n);
+        for (int i = 0; i < result.size(); i++) {
+            System.out.print(result.get(i));
+            if (i != result.size() - 1) {
+                System.out.print(" ");
+            }
+        }
+    }
+}
