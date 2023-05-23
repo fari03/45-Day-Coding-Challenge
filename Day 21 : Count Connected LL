@@ -1,0 +1,46 @@
+import java.util.HashMap;
+/********************************************************
+
+    Following is the class structure of the Node class:
+    
+    class Node
+    {
+        public:
+            int data;
+            Node next;
+            Node(int data)
+            {
+                this.data = data;
+                this.next = null;
+            }
+    };
+
+********************************************************/
+
+
+public class Solution {
+    public static int countConnected(Node head, int[] arr, int m) {
+        HashMap<Integer, Boolean> mp = new HashMap<>();
+        for (int i = 0; i < m; i++) {
+            mp.put(arr[i], true);
+        }
+
+        return helper(head, false, mp);
+    }
+
+    private static int helper(Node temp, boolean check, HashMap<Integer, Boolean> mp) {
+        if (temp == null) {
+            return 0;
+        }
+
+        if (mp.containsKey(temp.data)) {
+            if (!check) {
+                return 1 + helper(temp.next, true, mp);
+            } else {
+                return helper(temp.next, true, mp);
+            }
+        }
+
+        return helper(temp.next, false, mp);
+    }
+}
