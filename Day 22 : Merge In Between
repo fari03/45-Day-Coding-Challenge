@@ -1,0 +1,46 @@
+/****************************************************************
+
+Following is the class structure of the Node class:
+
+class LinkedListNode {
+    public int data;
+    public LinkedListNode next;
+
+    LinkedListNode(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+*****************************************************************/
+
+public class Solution {
+
+    public static LinkedListNode mergeInBetween(int x, int y, LinkedListNode head1, LinkedListNode head2) {
+        LinkedListNode start = null;
+        LinkedListNode end = head1;
+
+        // Traverse head1 to find the start and end nodes
+        for (int i = 0; i < y; i++) {
+            if (i == x - 1) {
+                start = end;
+            }
+            end = end.next;
+        }
+
+        // Connect the start node to head2
+        start.next = head2;
+        LinkedListNode temp = head2;
+
+        // Traverse head2 to reach the last node
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        // Connect the last node of head2 to the node following the end node in head1
+        temp.next = end.next;
+        end.next = null;
+
+        return head1;
+    }
+}
