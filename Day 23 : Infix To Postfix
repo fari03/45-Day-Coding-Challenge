@@ -1,0 +1,60 @@
+import java.util.*;
+
+public class Solution {
+    public static String infixToPostfix(String exp) {
+        StringBuilder s = new StringBuilder();
+        Stack<Character> stk = new Stack<>();
+
+        Map<Character, Integer> d = new HashMap<>();
+        d.put('+', 1);
+        d.put('-', 1);
+        d.put('*', 2);
+        d.put('/', 2);
+        d.put('^', 3);
+        d.put('(', 0);
+
+        for (char x : exp.toCharArray()) {
+            if (Character.isDigit(x) || Character.isLetter(x)) {
+                s.append(x);
+            } else {
+                if (x == '(') {
+                    stk.push('(');
+                } else if (x == ')') {
+                    while (!stk.isEmpty() && stk.peek() != '(') {
+                        s.append(stk.pop());
+                    }
+                    stk.pop();
+                } else {
+                    while (!stk.isEmpty() && precedence(stk.peek(), x)) {
+                        char op = stk.pop();
+                        s.append(op);
+                    }
+                    stk.push(x);
+                }
+            }
+        }
+
+        while (!stk.isEmpty()) {
+            s.append(stk.pop());
+        }
+
+        return s.toString();
+    }
+
+    private static boolean precedence(char l, char r) {
+        Map<Character, Integer> d = new HashMap<>();
+        d.put('+', 1);
+        d.put('-', 1);
+        d.put('*', 2);
+        d.put('/', 2);
+        d.put('^', 3);
+        d.put('(', 0);
+        return d.get(l) >= d.get(r);
+    }
+
+    public static void main(String[] args) {
+        String expression = "3 + 4 * 2 / ( 1 - 5 ) ^ 2 ^ 3";
+        String postfix = infixToPostfix(expression);
+        System.out.println("Postfix expression: " + postfix);
+    }
+}
