@@ -1,14 +1,14 @@
-#Write a function that calculates corresponding day of the week for any particular date in the past or future
+/* Write a function that calculates corresponding day of the week for any particular date in the past or future
 # Constraints: 
 1<=T<=10^5  
 1<=Day<=31    
 1<=Month<=12
 1<=Year<=2,000,000 
-Time Limit: 1sec
+Time Limit: 1sec*/
 
 import java.util.Scanner;
 
-public class Solution {
+public class DayOfWeek{
     public static String dayOfTheWeek(int day, int month, int year) {
         // Zeller's congruence algorithm
         int q = day;
