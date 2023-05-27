@@ -1,0 +1,36 @@
+import java.util.*;
+
+public class Solution {
+    public static int flipBits(int[] arr, int n) {
+        int ans = 0;
+        int currentCount = 0;
+        int oneCount = 0;
+
+        for (int i = 0; i < n; i++) {
+            if (arr[i] == 0) {
+                currentCount++;
+            } else {
+                currentCount--;
+                oneCount++;
+                if (currentCount < 0) {
+                    currentCount = 0;
+                }
+            }
+
+            if (currentCount > ans) {
+                ans = currentCount;
+            }
+        }
+
+        return ans + oneCount;
+    }
+
+    public static void main(String[] args) {
+        // Test the code
+        int[] arr = {0, 1, 0, 1, 0, 1};
+        int n = arr.length;
+
+        int maxFlippedBits = flipBits(arr, n);
+        System.out.println("Maximum flipped bits: " + maxFlippedBits);
+    }
+}
