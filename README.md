@@ -6,7 +6,8 @@ The 45-Day Coding Challenge is an initiative by Code Studio to help programmers 
 
 # Getting Started
 To access the code solutions and participate in the challenge, you can clone this repository using the following command:
-git clone https://github.com/fari03/45-Day-Coding-Challenge.git
+[git clone https://github.com/fari03/45-Day-Coding-Challenge.git](https://github.com/fari03/45-Day-Coding-Challenge.git)
+
 Make sure you have Git installed on your local machine before running the above command.
 
 # Contributing
