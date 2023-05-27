@@ -1,0 +1,17 @@
+import javafx.util.Pair;
+
+public class Solution {
+    public static Pair<Integer, Integer> swap(Pair<Integer, Integer> swapValues) {
+        int temp = swapValues.getKey();
+        swapValues = new Pair<>(swapValues.getValue(), temp);
+        return swapValues;
+    }
+
+    public static void main(String[] args) {
+        Pair<Integer, Integer> pair = new Pair<>(3, 5);
+        System.out.println("Before swap: " + pair.getKey() + ", " + pair.getValue());
+
+        Pair<Integer, Integer> swappedPair = swap(pair);
+        System.out.println("After swap: " + swappedPair.getKey() + ", " + swappedPair.getValue());
+    }
+}
