@@ -1,0 +1,34 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        int n = scanner.nextInt();
+        int[] arr = new int[n];
+
+        // Taking Input
+        for (int i = 0; i < n; i++) {
+            arr[i] = scanner.nextInt();
+        }
+
+        // Sort array
+        Arrays.sort(arr);
+
+        int count = 1;
+        int p = arr[0];
+        for (int i = 1; i < n; i++) {
+            if (arr[i] >= p && arr[i] <= p + 4)
+                continue;
+            else {
+                count++;
+            }
+            p = arr[i];
+        }
+
+        System.out.println(count);
+
+        scanner.close();
+    }
+}
