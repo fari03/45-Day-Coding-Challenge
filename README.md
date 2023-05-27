@@ -5,9 +5,8 @@ Welcome to the 45-Day Coding Challenge! This repository is created to document m
 The 45-Day Coding Challenge is an initiative by Code Studio to help programmers enhance their coding skills and problem-solving abilities. The challenge consists of a series of coding problems that participants are encouraged to solve within a specified timeframe.
 
 # Getting Started
-To access the code solutions and participate in the challenge, you can clone this repository using the following command:
-[git clone https://github.com/fari03/45-Day-Coding-Challenge.git](https://github.com/fari03/45-Day-Coding-Challenge.git)
-
+To access the code solutions and participate in the challenge, you can clone this repository using the following command:<br>
+[git clone https://github.com/fari03/45-Day-Coding-Challenge.git](https://github.com/fari03/45-Day-Coding-Challenge.git)<br>
 Make sure you have Git installed on your local machine before running the above command.
 
 # Contributing
