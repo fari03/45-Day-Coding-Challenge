@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Solution {
+public class CountInversions {
     public static long getInversions(long arr[], int n) {
         return mergeSortAndCount(arr, 0, n - 1);
     }
