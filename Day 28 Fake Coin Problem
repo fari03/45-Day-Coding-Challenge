@@ -1,0 +1,11 @@
+public class Solution {
+    public static int FakeCoin(int []sum){
+        int n = sum.length;
+        for (int i = 1; i < n; i++) {
+            if (sum[i] - sum[i - 1] != 1) {
+                return i;
+            }
+        }
+        return 0;
+    }
+}
